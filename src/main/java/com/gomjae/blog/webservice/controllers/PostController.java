@@ -2,10 +2,15 @@ package com.gomjae.blog.webservice.controllers;
 
 import com.gomjae.blog.webservice.dto.request.RequestSaveDto;
 import com.gomjae.blog.webservice.dto.request.RequestUpdateDto;
+import com.gomjae.blog.webservice.dto.response.ResponseDeleteDto;
 import com.gomjae.blog.webservice.dto.response.ResponsePostDto;
+import com.gomjae.blog.webservice.dto.response.ResponseSaveDto;
+import com.gomjae.blog.webservice.dto.response.ResponseUpdateDto;
 import com.gomjae.blog.webservice.services.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,9 +20,16 @@ public class PostController {
 
     // 게시물 저장 - C
     @PostMapping("/api/v1/post")
-    public Long save(@RequestBody RequestSaveDto requestSaveDto) {
+    public ResponseSaveDto save(@RequestBody RequestSaveDto requestSaveDto) {
 
         return postService.save(requestSaveDto);
+    }
+
+    // 게시물 List - R, All
+    @GetMapping("/api/vi/postlist")
+    public List<ResponsePostDto> findAllPosts(){
+
+        return postService.findAllDesc();
     }
 
     // 게시물 읽기 - R
@@ -29,16 +41,15 @@ public class PostController {
 
     // 게시물 수정 - U
     @PutMapping("/api/v1/post/{id}")
-    public Long update(@PathVariable Long id, @RequestBody RequestUpdateDto requestUpdateDto) {
+    public ResponseUpdateDto update(@PathVariable Long id, @RequestBody RequestUpdateDto requestUpdateDto) {
 
         return postService.update(id,requestUpdateDto);
     }
 
     // 게시물 삭제 - D
     @DeleteMapping("/api/v1/post/{id}")
-    public Long delete(@PathVariable Long id){
+    public ResponseDeleteDto delete(@PathVariable Long id){
 
-        postService.delete(id);
-        return id;
+        return postService.delete(id);
     }
 }
