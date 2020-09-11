@@ -28,7 +28,7 @@ public class PostController {
     }
 
     // 게시물 수정 - U
-    @PutMapping("/api/v1/posts/{id}")
+    @PutMapping("/api/v1/post/{id}")
     public Long update(@PathVariable Long id, @RequestBody RequestUpdateDto requestUpdateDto) {
 
         return postService.update(id,requestUpdateDto);
